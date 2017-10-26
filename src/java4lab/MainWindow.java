@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package java4lab;
-
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -36,6 +36,10 @@ public class MainWindow extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         task1TextArea = new javax.swing.JTextArea();
         task2Panel = new javax.swing.JPanel();
+        inputTextField = new javax.swing.JTextField();
+        task2RunButton = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        task2TextArea = new javax.swing.JTextArea();
         task3Panel = new javax.swing.JPanel();
         task1Button = new javax.swing.JButton();
         task2Button = new javax.swing.JButton();
@@ -82,15 +86,48 @@ public class MainWindow extends javax.swing.JFrame {
 
         mainPanel.add(task1Panel, "card2");
 
+        inputTextField.setText("23 1.3 -18 -6 20 1256");
+        inputTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                inputTextFieldKeyReleased(evt);
+            }
+        });
+
+        task2RunButton.setText("Run");
+        task2RunButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                task2RunButtonActionPerformed(evt);
+            }
+        });
+
+        task2TextArea.setColumns(20);
+        task2TextArea.setRows(5);
+        jScrollPane2.setViewportView(task2TextArea);
+
         javax.swing.GroupLayout task2PanelLayout = new javax.swing.GroupLayout(task2Panel);
         task2Panel.setLayout(task2PanelLayout);
         task2PanelLayout.setHorizontalGroup(
             task2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 508, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, task2PanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(task2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane2)
+                    .addComponent(inputTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, task2PanelLayout.createSequentialGroup()
+                        .addComponent(task2RunButton)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         task2PanelLayout.setVerticalGroup(
             task2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 294, Short.MAX_VALUE)
+            .addGroup(task2PanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(inputTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(task2RunButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         mainPanel.add(task2Panel, "card3");
@@ -108,21 +145,21 @@ public class MainWindow extends javax.swing.JFrame {
 
         mainPanel.add(task3Panel, "card4");
 
-        task1Button.setText("jButton1");
+        task1Button.setText("Задание A");
         task1Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 task1ButtonActionPerformed(evt);
             }
         });
 
-        task2Button.setText("jButton2");
+        task2Button.setText("Задание B");
         task2Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 task2ButtonActionPerformed(evt);
             }
         });
 
-        task3Button.setText("jButton3");
+        task3Button.setText("Задание C");
         task3Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 task3ButtonActionPerformed(evt);
@@ -137,7 +174,7 @@ public class MainWindow extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addComponent(task1Button)
-                .addGap(109, 109, 109)
+                .addGap(88, 88, 88)
                 .addComponent(task2Button)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(task3Button)
@@ -191,6 +228,76 @@ public class MainWindow extends javax.swing.JFrame {
         task1TextArea.setText(temp);
     }//GEN-LAST:event_task1RunButtonActionPerformed
 
+    // checking input with KeyReleased is a BAD idea. I'm truly sorry for what 
+    // i've done, but that's the task. i'd just use try/catch.
+    private void inputTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputTextFieldKeyReleased
+        // TODO add your handling code here:
+        String input = inputTextField.getText();
+        int inchar = evt.getKeyCode();
+        // deleting everything except permitted symbols
+        if (checkForAll(inchar) == false)
+        {
+            deleteLast(input);
+            return;
+        }
+        // SPACE rules: space cannot be first, there can't be 2 spaces near
+        if (((lastSymbol(input) == ' ') || (input.length() == 1)) && inchar == ' ')
+        {
+            deleteLast(input);
+            return;
+        }
+        // MINUS rules: only after space of in the beggining
+        if (!(lastSymbol(input) == ' ' || input.length() == 1) && (inchar == '-' || inchar == 109))
+        {
+            deleteLast(input);
+            return;
+        }
+    }//GEN-LAST:event_inputTextFieldKeyReleased
+
+    private void task2RunButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_task2RunButtonActionPerformed
+        // TODO add your handling code here:
+        String input = inputTextField.getText();
+        int inputLength = input.length();
+        if ((inputLength == 0) || (inputLength == 1 && input.contains("-")))
+        {
+            JOptionPane.showMessageDialog(null, "Необходимо ввести данные в верхнее текстовое поле!");
+            return;
+        }
+        if (input.charAt(inputLength - 1) == '-')
+            deleteLast(input);
+        if (input.charAt(inputLength - 1) == ' ')
+            deleteLast(input);
+    }//GEN-LAST:event_task2RunButtonActionPerformed
+    
+    private char lastSymbol(String str)
+    {
+        if (str.length() > 1)
+            return str.charAt(str.length() - 2);
+        else
+            return 'a'; // returning trash. that's ok though.
+    }
+    
+    private void deleteLast(String str)
+    {
+        if (str != null && str.length() > 0) 
+            str = str.substring(0, str.length() - 1);
+        inputTextField.setText(str);
+    }
+    
+    private boolean checkForAll(int a)
+    {
+        // checking for space, backspace, enter and "-"
+        if (a == 32 || a == 8 || a == 10 || a == 45 || a == 109)
+            return true;
+        // checking for numbers from 0 to 9
+        if (a >= 48 && a <=57)
+            return true;
+        // checking for numbers from 0 to 9 on numpad
+        if (a >= 96 && a <= 105)
+            return true;
+        return false;
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -227,7 +334,9 @@ public class MainWindow extends javax.swing.JFrame {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField inputTextField;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JButton task1Button;
     private javax.swing.JPanel task1Panel;
@@ -235,6 +344,8 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JTextArea task1TextArea;
     private javax.swing.JButton task2Button;
     private javax.swing.JPanel task2Panel;
+    private javax.swing.JButton task2RunButton;
+    private javax.swing.JTextArea task2TextArea;
     private javax.swing.JButton task3Button;
     private javax.swing.JPanel task3Panel;
     // End of variables declaration//GEN-END:variables
