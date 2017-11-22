@@ -4,8 +4,6 @@
  * and open the template in the editor.
  */
 package java4lab;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,7 +14,6 @@ import javax.swing.JOptionPane;
 public class MainWindow extends javax.swing.JFrame {
 
     private String cInput = "";
-
     
     private final double[] constarray = {23, 1.3, 18, -6, 20, 1256};
     
@@ -47,6 +44,14 @@ public class MainWindow extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         task2TextArea = new javax.swing.JTextArea();
         task3Panel = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        task3ButtonRun = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        task3TextArea = new javax.swing.JTextArea();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
         task1Button = new javax.swing.JButton();
         task2Button = new javax.swing.JButton();
         task3Button = new javax.swing.JButton();
@@ -86,7 +91,7 @@ public class MainWindow extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(task1RunButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -132,21 +137,105 @@ public class MainWindow extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(task2RunButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         mainPanel.add(task2Panel, "card3");
 
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Индексы ячеек", "0", "1", "2", "3", "4", "5"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, true, true, true, true, true, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(jTable1);
+
+        task3ButtonRun.setText("Run");
+        task3ButtonRun.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                task3ButtonRunActionPerformed(evt);
+            }
+        });
+
+        task3TextArea.setColumns(20);
+        task3TextArea.setRows(5);
+        jScrollPane4.setViewportView(task3TextArea);
+
+        jLabel1.setText("Sorted Array");
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Индексы ячеек", "0", "1", "2", "3", "4", "5"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane5.setViewportView(jTable2);
+
         javax.swing.GroupLayout task3PanelLayout = new javax.swing.GroupLayout(task3Panel);
         task3Panel.setLayout(task3PanelLayout);
         task3PanelLayout.setHorizontalGroup(
             task3PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 508, Short.MAX_VALUE)
+            .addComponent(jScrollPane3)
+            .addGroup(task3PanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(task3PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE)
+                    .addGroup(task3PanelLayout.createSequentialGroup()
+                        .addGroup(task3PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(task3ButtonRun)
+                            .addComponent(jLabel1))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         task3PanelLayout.setVerticalGroup(
             task3PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 294, Short.MAX_VALUE)
+            .addGroup(task3PanelLayout.createSequentialGroup()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(task3ButtonRun)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         mainPanel.add(task3Panel, "card4");
@@ -287,6 +376,10 @@ public class MainWindow extends javax.swing.JFrame {
         tmp2 += "\nСумма всех четных элементов равна\n" + tmp.GetSum();
         task2TextArea.setText(tmp2);
     }//GEN-LAST:event_task2RunButtonActionPerformed
+
+    private void task3ButtonRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_task3ButtonRunActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_task3ButtonRunActionPerformed
     
     private char lastSymbol(String str)
     {
@@ -354,8 +447,14 @@ public class MainWindow extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField inputTextField;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JButton task1Button;
     private javax.swing.JPanel task1Panel;
@@ -366,7 +465,9 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JButton task2RunButton;
     private javax.swing.JTextArea task2TextArea;
     private javax.swing.JButton task3Button;
+    private javax.swing.JButton task3ButtonRun;
     private javax.swing.JPanel task3Panel;
+    private javax.swing.JTextArea task3TextArea;
     // End of variables declaration//GEN-END:variables
 }
 
