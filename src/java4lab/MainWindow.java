@@ -4,14 +4,20 @@
  * and open the template in the editor.
  */
 package java4lab;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author Денис
  */
+
 public class MainWindow extends javax.swing.JFrame {
 
+    private String cInput = "";
+
+    
     private final double[] constarray = {23, 1.3, 18, -6, 20, 1256};
     
     /**
@@ -228,8 +234,6 @@ public class MainWindow extends javax.swing.JFrame {
         task1TextArea.setText(temp);
     }//GEN-LAST:event_task1RunButtonActionPerformed
 
-    // checking input with KeyReleased is a BAD idea. I'm truly sorry for what 
-    // i've done, but that's the task. i'd just use try/catch.
     private void inputTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputTextFieldKeyReleased
         // TODO add your handling code here:
         String input = inputTextField.getText();
@@ -237,21 +241,22 @@ public class MainWindow extends javax.swing.JFrame {
         // deleting everything except permitted symbols
         if (checkForAll(inchar) == false)
         {
-            deleteLast(input);
+            inputTextField.setText(cInput);
             return;
         }
         // SPACE rules: space cannot be first, there can't be 2 spaces near
         if (((lastSymbol(input) == ' ') || (input.length() == 1)) && inchar == ' ')
         {
-            deleteLast(input);
+            inputTextField.setText(cInput);
             return;
         }
         // MINUS rules: only after space of in the beggining
         if (!(lastSymbol(input) == ' ' || input.length() == 1) && (inchar == '-' || inchar == 109))
         {
-            deleteLast(input);
+            inputTextField.setText(cInput);
             return;
         }
+        cInput = inputTextField.getText();
     }//GEN-LAST:event_inputTextFieldKeyReleased
 
     private void task2RunButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_task2RunButtonActionPerformed
@@ -267,6 +272,20 @@ public class MainWindow extends javax.swing.JFrame {
             deleteLast(input);
         if (input.charAt(inputLength - 1) == ' ')
             deleteLast(input);
+        String[] temp;
+        temp = input.split(" ");
+        // List<Double> list = new ArrayList<>();
+        double[] array = new double[temp.length];
+        for (int i = 0; i < temp.length; i++)
+            array[i] = Double.parseDouble(temp[i]);
+        SMethods tmp = new SMethods(array);
+        String tmp2 = "Исходный массив\n";
+        for (int i = 0; i < array.length; i++)
+        {
+            tmp2 += array[i] + "\t";
+        }
+        tmp2 += "\nСумма всех четных элементов равна\n" + tmp.GetSum();
+        task2TextArea.setText(tmp2);
     }//GEN-LAST:event_task2RunButtonActionPerformed
     
     private char lastSymbol(String str)
