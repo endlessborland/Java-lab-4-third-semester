@@ -145,7 +145,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null}
+                {"Значения ячеек", 23, 1.3, 18, -6, 20, 1256}
             },
             new String [] {
                 "Индексы ячеек", "0", "1", "2", "3", "4", "5"
@@ -183,7 +183,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null}
+                {"Значение ячеек", null, null, null, null, null, null}
             },
             new String [] {
                 "Индексы ячеек", "0", "1", "2", "3", "4", "5"
@@ -378,7 +378,25 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_task2RunButtonActionPerformed
 
     private void task3ButtonRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_task3ButtonRunActionPerformed
-        // TODO add your handling code here:
+        // row 0
+        // starts with 1
+        double[] array = new double[6];
+        String temp = "Исходный массив\n";
+
+        for (int i = 1, j = 0; i < this.jTable1.getColumnCount(); i++, j++)
+        {
+            array[j] = Double.parseDouble(this.jTable1.getValueAt(0, i).toString());
+            temp += this.jTable1.getValueAt(0, i).toString() + "\t";
+        }
+        temp += "\n";
+        SMethods tmp = new SMethods(array);
+        for (int i = 1, j = 0; i < this.jTable1.getColumnCount(); i++, j++)
+        {
+            temp += array[j] + "\t";
+            this.jTable2.setValueAt(array[j], 0, i);
+        }
+        temp += "\nСумма всех четных элементов равна\n" + tmp.GetSum();
+        this.task3TextArea.setText(temp);
     }//GEN-LAST:event_task3ButtonRunActionPerformed
     
     private char lastSymbol(String str)
